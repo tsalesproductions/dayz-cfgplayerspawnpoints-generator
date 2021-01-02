@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cfgplayerspawnpoints Generator</title>
+    <style>
+        *{margin:0; padding: 0;}
+
+        main{
+            max-width: 1140px;
+            margin: 0 auto;
+
+            display: grid; 
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+        }
+
+        @media(max-width:768px){
+            main{grid-template-columns: 1fr!important;}
+        }
+
+        main textarea{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div>
+            <p>cfgplayerspawnpoints.xml generator</p>
+            <textarea id="spawnplayertypes" placeholder="<8082.834961, 73.587814, 11220.921875>" rows="20"></textarea>
+            <button id="generate">Generate</button>
+        </div>
+        <div class="target">
+
+        </div>
+    </main>
+    <script>
+        window.addEventListener("load", function(){
+            let btn = document.querySelector("#generate");
+
+            if(btn !== null){
+                btn.addEventListener("click", function(e){
+                    e.preventDefault();
+                    let input = document.querySelector("#spawnplayertypes"),
+                        main = document.querySelector(".target");
+
+                    if(input && input.val !== ''){
+                        main.innerHTML = "";
+
+                        let values = input.value.split(">");
+                            values.forEach(function(item){
+                                let i = item.split(", ");
+                                if(i[2] !== undefined){
+                                    i[0].replace("<", "")
+                                    
+                                    let p = document.createElement("P");
+                                    p.innerText = `<pos x="${i[0].trim().replace("<", "")}" z="${i[2]}" />`;
+                                    main.append(p);
+                                }
+                                    
+                            });
+                    }
+                });
+            }
+        })
+    </script>
+</body>
+</html>
