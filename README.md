@@ -1,0 +1,1 @@
+# dayz-cfgplayerspawnpoints-generator
